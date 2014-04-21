@@ -1,10 +1,10 @@
 #!/bin/bash
 
-BASEDIR="/home/cocafe/Android/CoCore_mini/"
+BASEDIR="/home/salvo/kernel/"
 OUTDIR="$BASEDIR/out"
-INITRAMFSDIR="$BASEDIR/ramdisk-twrp2.2"
+INITRAMFSDIR="$BASEDIR/ramdisk-cwm"
 #INITRAMFSDIR="$BASEDIR/ramdisk-twrp2.3"
-TOOLCHAIN="/home/cocafe/Android/toolchains/arm-eabi-4.4.3/bin/arm-eabi-"
+TOOLCHAIN="/home/salvo/toolchains/arm-eabi-linaro-4.6.2/bin/arm-eabi-"
 #TOOLCHAIN="/home/cocafe/Android/toolchains/arm-eabi-linaro-4.4.5/bin/arm-eabi-"
 #TOOLCHAIN="/home/cocafe/Android/toolchains/arm-eabi-linaro-4.5.4/bin/arm-eabi-"
 #TOOLCHAIN="/home/cocafe/Android/toolchains/arm-eabi-linaro-4.6.3/bin/arm-eabi-"
@@ -26,18 +26,18 @@ case "$1" in
 		;;
 	*)
 		echo -e "\n\n Configuring I9070 Kernel...\n\n"
-		make u8500_CoCore_mini_defconfig ARCH=arm CROSS_COMPILE=$TOOLCHAIN
+		make pizza_defconfig ARCH=arm CROSS_COMPILE=$TOOLCHAIN
 
 		echo -e "\n\n Compiling I9070 Kernel and Modules... \n\n"
 		make -j3 ARCH=arm CROSS_COMPILE=$TOOLCHAIN CONFIG_INITRAMFS_SOURCE=$INITRAMFSDIR
 
 		echo -e "\n\n Copying Modules to InitRamFS Folder...\n\n"
-		mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7
-		mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/bluetooth/bthid
-		mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/net/wireless/bcm4330
-		mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/samsung/j4fs
-		mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/samsung/param
-		mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/scsi
+		mkdir -p $INITRAMFSDIR/lib/modules/3.0.31
+		mkdir -p $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/bluetooth/bthid
+		mkdir -p $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/net/wireless/bcm4330
+		mkdir -p $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/samsung/j4fs
+		mkdir -p $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/samsung/param
+		mkdir -p $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/scsi
 		#mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/cifs
 		#mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/smbfs
 		#mkdir -p $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/net/ipv4/
@@ -45,11 +45,11 @@ case "$1" in
 
 		#cp fs/cifs/cifs.ko $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/cifs/cifs.ko
 		#cp fs/smbfs/smbfs.ko $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/smbfs/smbfs.ko
-		cp drivers/bluetooth/bthid/bthid.ko $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/bluetooth/bthid/bthid.ko
-		cp drivers/net/wireless/bcm4330/dhd.ko $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/net/wireless/bcm4330/dhd.ko
-		cp drivers/samsung/param/param.ko $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/samsung/param/param.ko
-		cp drivers/scsi/scsi_wait_scan.ko $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/scsi/scsi_wait_scan.ko
-		cp drivers/samsung/j4fs/j4fs.ko $INITRAMFSDIR/lib/modules/2.6.35.7/kernel/drivers/samsung/j4fs/j4fs.ko
+		cp drivers/bluetooth/bthid/bthid.ko $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/bluetooth/bthid/bthid.ko
+		cp drivers/net/wireless/bcm4330/dhd.ko $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/net/wireless/bcm4330/dhd.ko
+		cp drivers/samsung/param/param.ko $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/samsung/param/param.ko
+		cp drivers/scsi/scsi_wait_scan.ko $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/scsi/scsi_wait_scan.ko
+		cp drivers/samsung/j4fs/j4fs.ko $INITRAMFSDIR/lib/modules/3.0.31/kernel/drivers/samsung/j4fs/j4fs.ko
 
 		echo -e "\n\n Creating zImage...\n\n"
 		make ARCH=arm CROSS_COMPILE=$TOOLCHAIN CONFIG_INITRAMFS_SOURCE=$INITRAMFSDIR zImage
